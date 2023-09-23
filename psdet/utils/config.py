@@ -35,7 +35,7 @@ def get_config_from_yaml(yaml_file):
 
     with open(yaml_file) as fp:
         #config_dict = yaml.load(fp, Loader=yaml.FullLoader)
-        config_dict = yaml.load(fp)
+        config_dict = yaml.safe_load(fp)
 
     # convert the dictionary to a namespace using bunch lib
     config = Dict(config_dict)
