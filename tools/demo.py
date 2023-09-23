@@ -5,6 +5,11 @@ import pprint
 import numpy as np
 from pathlib import Path
 
+import sys
+import os
+print(os.getcwd())
+sys.path.append(os.getcwd())
+
 from psdet.utils.config import get_config
 from psdet.utils.common import get_logger
 from psdet.models.builder import build_model
@@ -72,7 +77,7 @@ def main():
     logger.info(model)
     
     image_dir = Path(cfg.data_root) / 'testing' / 'outdoor-normal daylight'
-    display = False
+    display = True
 
     # load checkpoint
     model.load_params_from_file(filename=cfg.ckpt, logger=logger, to_cpu=False)
