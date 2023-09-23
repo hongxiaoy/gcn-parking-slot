@@ -1,6 +1,12 @@
 import os
 import torch
 import pprint
+
+import sys
+import os
+print(os.getcwd())
+sys.path.append(os.getcwd())
+
 from psdet.utils import dist
 from psdet.utils.config import get_config
 from psdet.utils.common import get_logger, set_random_seed
