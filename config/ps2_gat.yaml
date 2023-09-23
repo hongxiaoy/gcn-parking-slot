@@ -21,7 +21,7 @@ data:
     max_points: *max_points
     mode: 'train'
     batch_size: *batch_size
-    num_workers: 4
+    num_workers: 0
     
   val:
     type: *dataset_type
@@ -29,7 +29,7 @@ data:
     max_points: *max_points
     mode: 'val'
     batch_size: *batch_size
-    num_workers: 4
+    num_workers: 0
     
       
 # model settings
