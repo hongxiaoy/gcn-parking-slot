@@ -41,10 +41,14 @@ The original ps2.0 data and label can be found [here](https://github.com/Teoge/D
 ```
 ├── datasets
 │   └── parking_slot
-│       ├── annotations
-│       ├── ps_json_label 
-│       ├── testing
-│       └── training
+│       ├── annotations (copy testing and training here)
+│       ├── ps_json_label (download from DMPR-PS)
+│       ├── testing (from ps2.0)
+│       └── training (from ps2.0)
+```
+Then you can use the following command lines to prepare the data, please note that these lines are run in DMPR-PS directory, following its data preparation procedure.
+```bash
+
 ```
 ## Train & Test
 
@@ -53,11 +57,23 @@ Export current directory to `PYTHONPATH`:
 ```bash
 export PYTHONPATH=`pwd`
 ```
+or add the following lines to `demo.py`, `train.py`, `test.py` in `tool` directory at the top of file:
+```python
+import sys
+import os
+print(os.getcwd())
+sys.path.append(os.getcwd())
+```
 
 - demo
 
 ```
 python3 tools/demo.py -c config/ps_gat.yaml -m cache/ps_gat/100/models/checkpoint_epoch_200.pth
+```
+
+- show demo in ps2.0 dataset:
+```
+python3 tools/demo.py -c config/ps2_gat.yaml -m checkpoint_epoch_200.pth
 ```
 
 - train
@@ -66,10 +82,22 @@ python3 tools/demo.py -c config/ps_gat.yaml -m cache/ps_gat/100/models/checkpoin
 python3 tools/train.py -c config/ps_gat.yaml
 ```
 
+- train in ps2.0 dataset
+
+```
+python tools/train.py -c config/ps2_gat.yaml
+```
+
 - test
 
 ```
 python3 tools/test.py -c config/ps_gat.yaml -m cache/ps_gat/100/models/checkpoint_epoch_200.pth
+```
+
+- test in ps2.0 dataset
+
+```
+python tools/test.py -c config/ps2_gat.yaml -m checkpoint_epoch_200.pth
 ```
 
 ## References
