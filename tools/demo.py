@@ -4,6 +4,7 @@ import torch
 import pprint
 import numpy as np
 from pathlib import Path
+from tqdm import tqdm
 
 import sys
 import os
@@ -89,8 +90,9 @@ def main():
         car = cv2.resize(car, (512, 512))
 
     with torch.no_grad():
-
-        for img_path in image_dir.glob('*.jpg'):
+        image_dir = Path(r"datasets\B2_dataset\avm_0331")
+        print(image_dir)
+        for img_path in tqdm(image_dir.glob('*.png')):
             img_name = img_path.stem
             
             data_dict = {} 
@@ -103,7 +105,7 @@ def main():
             start_time = time.time()
             pred_dicts, ret_dict = model(data_dict)
             sec_per_example = (time.time() - start_time)
-            print('Info speed: %.4f second per example.' % sec_per_example)
+            # print('Info speed: %.4f second per example.' % sec_per_example)
 
             if display:
                 image = draw_parking_slot(image0, pred_dicts)
@@ -116,6 +118,7 @@ def main():
                 save_dir.mkdir(parents=True, exist_ok=True)
                 save_path = save_dir / ('%s.jpg' % img_name)
                 cv2.imwrite(str(save_path), image)
+                # print("success:", save_path)
     if display:
         cv2.destroyAllWindows()
 
