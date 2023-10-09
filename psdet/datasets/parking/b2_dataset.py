@@ -11,7 +11,15 @@ from psdet.datasets.registry import DATASETS
 from psdet.utils.precision_recall import calc_average_precision, calc_precision_recall
 
 from .process_data import boundary_check, overlap_check, rotate_centralized_marks, rotate_image, generalize_marks
-from .utils import match_marking_points, match_slots 
+from .utils import match_marking_points, match_slots
+
+
+def cross_product(p1, p2, p3):
+    v1 = p2 - p1
+    v2 = p3 - p2
+    cross = np.cross(v1, v2)
+    return cross
+
 
 @DATASETS.register
 class B2Dataset(BaseDataset):
@@ -71,8 +79,16 @@ class B2Dataset(BaseDataset):
         marks = []
         data = data['annotations']
         for d in data:
+            point_xs = d['polygon'][::2]
+            point_ys = d['polygon'][1::2]
+            points = np.stack([point_xs, point_ys], axis=1)
+            cross = cross_product(points[0], points[1], points[2])
+            
             entry_pt = d['entry']
-            x1, y1, x2, y2 = entry_pt
+            if cross > 0:  # 顺时针
+                x1, y1, x2, y2 = entry_pt
+            elif cross < 0:  # 逆时针
+                x2, y2, x1, y1 = entry_pt
             marks.append([x1, y1])
             marks.append([x2, y2])
         marks = np.array(marks)

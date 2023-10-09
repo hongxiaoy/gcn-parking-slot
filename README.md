@@ -73,7 +73,12 @@ python3 tools/demo.py -c config/ps_gat.yaml -m cache/ps_gat/100/models/checkpoin
 
 - show demo in ps2.0 dataset:
 ```
-python3 tools/demo.py -c config/ps2_gat.yaml -m checkpoint_epoch_200.pth
+python tools/demo.py -c config/ps2_gat.yaml -m checkpoint_epoch_200.pth
+```
+
+- show demo in b2 dataset:
+```
+python tools/demo.py -c config/b2_gat.yaml -m checkpoint_epoch_200.pth
 ```
 
 - train
@@ -88,6 +93,12 @@ python3 tools/train.py -c config/ps_gat.yaml
 python tools/train.py -c config/ps2_gat.yaml
 ```
 
+- train in b2 dataset
+
+```
+python tools/train.py -c config/b2_gat.yaml
+```
+
 - test
 
 ```
@@ -98,6 +109,12 @@ python3 tools/test.py -c config/ps_gat.yaml -m cache/ps_gat/100/models/checkpoin
 
 ```
 python tools/test.py -c config/ps2_gat.yaml -m checkpoint_epoch_200.pth
+```
+
+- test in b2 dataset
+
+```
+python tools/test.py -c config/b2_gat.yaml -m checkpoint_epoch_200.pth
 ```
 
 ## References
